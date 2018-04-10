@@ -28,5 +28,5 @@ def main():
     print "Result: " + str(unpack_list(nested_list))
 
 
-if __name__== "__main__":
+if __name__ == "__main__":
     main()
