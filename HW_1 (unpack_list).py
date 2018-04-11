@@ -29,7 +29,7 @@ def is_parenthesis_balanced(string):
     :param string: input string containing parenthesis
     :return: True/False depending on whether parenthesis 
         are balanced or not
-	"""
+    """
     return string.count('(') is string.count(')')
 
 
