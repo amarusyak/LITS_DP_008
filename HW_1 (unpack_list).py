@@ -23,9 +23,25 @@ def unpack_list(lst):
     return sorted(lst)
 
 
+def is_parenthesis_balanced(string):
+    """
+    Checks if parenthesis are balanced in the string
+    :param string: input string containing parenthesis
+    :return: True/False depending on whether parenthesis 
+        are balanced or not
+	"""
+    return string.count('(') is string.count(')')
+
+
 def main():
     nested_list = input("Enter list sequence: ")
     print "Result: " + str(unpack_list(nested_list))
+
+    print '\n'
+
+    input_str = input("Enter some string containing parenthesis: ")
+    print ("Parenthesis are balanced!" if is_parenthesis_balanced(input_str) 
+           else "Parenthesis are NOT balanced :(")
 
 
 if __name__ == "__main__":
