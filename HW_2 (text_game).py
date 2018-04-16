@@ -1,14 +1,20 @@
 import random
 from time import sleep
+from platform import system
 import os
 
 
 def main():
+    os_type = system()
+    if os_type != 'Windows' and os_type != 'Linux':
+        raise EnvironmentError("Unsupported Operating System. Cannot continue.")
+
+    print('\n')
     print("Welcome!")
-    # sleep(1)
+    sleep(1)
     print("This is a simple lifecycle game :)")
-    # sleep(1)
-    raw_input("Press any key to continue...")
+    sleep(3)
+    input("Press any key to continue...")
 
     # General variables:
     choice = None
@@ -19,18 +25,23 @@ def main():
     const_increase = 5
     universities = list()
     univer_choice = None
+    gender = None
 
     while type(choice) is not int:
-        os.system('clear')
+        if os_type == 'Windows':
+            os.system('cls')
+        else:
+            os.system('clear')
+
         print("Chose your character:")
         print("1) Human")
         print("2) Dog")
         print("3) Cat")
         try:
-            choice = input(">>> ")
-            if choice < 0 or choice > 3:
-                raise NameError("Wrong choice")
-        except (NameError, SyntaxError, TypeError):
+            choice = int(input(">>> "))
+            if choice <= 0 or choice > 3:
+                raise SyntaxError("Wrong choice")
+        except (NameError, SyntaxError, TypeError, ValueError):
             choice = None
 
     birth_location = random.choice(locations_list)
@@ -39,7 +50,7 @@ def main():
         if birth_location is 'America':
             print("OK, so ya birth location iz Murica!")
             sleep(1)
-            print("Congrats, tho ))")
+            print("Congrats, tho")
             print("You was born in wealth family and there is not much stuff "
                   "to worry about")
             sleep(1)
@@ -55,15 +66,16 @@ def main():
 
             while type(relationships) is not str:
                 try:
-                    relationships = raw_input("'Y/N' >>> ").upper()
+                    relationships = input("'Y/N' >>> ").upper()
                     if relationships != 'Y' and relationships != 'N':
-                        raise NameError("Wrong choice")
-                except (NameError, SyntaxError, TypeError):
+                        raise SyntaxError("Wrong choice")
+                except (NameError, SyntaxError, TypeError, ValueError):
                     print("\nPlease, try again...")
                     relationships = None
 
             if relationships == 'Y':
-                print("\nAlright, bro)")
+                print('\n')
+                print("Alright, bro)")
                 sleep(1)
                 print("But how strong is your love? Huh?")
                 print("Evaluate it in range from 0 ('don't really luw.') "
@@ -71,10 +83,10 @@ def main():
 
                 while type(love) is not int:
                     try:
-                        love = input(">>> ")
+                        love = int(input(">>> "))
                         if love < 0 or love > 50:
-                            raise NameError("Wrong number has been entered")
-                    except (NameError, SyntaxError, TypeError):
+                            raise SyntaxError("Wrong number has been entered")
+                    except (NameError, SyntaxError, TypeError, ValueError):
                         print("\nPlease, try again...")
                         love = None
 
@@ -102,7 +114,7 @@ def main():
             sleep(1)
             print("But exams are around the corner! O_O")
             sleep(1)
-            raw_input("Press any key to start the exam...")
+            input("Press any key to start the exam...")
             print("Note: you have 3 chances to pass the exams!")
             sleep(1)
             print('\n')
@@ -149,14 +161,13 @@ def main():
                 print("{i}) {u}".format(i=index, u=univer))
             while type(univer_choice) is not int:
                 try:
-                    univer_choice = input(">>> ")
-                    if univer_choice < 0 or univer_choice > len(universities):
-                        raise NameError("Wrong choice")
-                except (NameError, SyntaxError, TypeError):
+                    univer_choice = int(input(">>> "))
+                    if univer_choice <= 0 or univer_choice > len(universities):
+                        raise SyntaxError("Wrong choice")
+                except (NameError, SyntaxError, TypeError, ValueError):
                     print("\nPlease, try again...")
                     univer_choice = None
-
-            finished_university = random.choice([True, False])  # final decision
+            finished_university = random.choice([True, False])
             if univer_choice == 1:
                 if len(universities) == 2:
                     print("You have entered an ordinary college")
@@ -176,6 +187,7 @@ def main():
                           "Everything depends on you!")
                     sleep(1)
                     print("Simply do not fuck up.")
+                    dead = True
                 else:
                     print("Congratulations! You have entered '{u}'!".format(
                         u=universities[0]))
@@ -195,8 +207,9 @@ def main():
                               "rules our minds!..")
                         sleep(3)
                         print('\n')
-                        raise EnvironmentError("Your character has left the "
-                                               "program!..")
+                        raise EnvironmentError(
+                            "Your character has left the program!.."
+                        )
                     else:
                         sleep(1)
                         print("Unfortunately, you have not finished the univer")
@@ -213,6 +226,7 @@ def main():
                         print("That's creepy, right?..")
                         print("So, do not make such mistakes as your character "
                               "actually did!!!")
+                        dead = True
             elif univer_choice == 2:
                 if len(universities) == 2:
                     print("That's your choice, btw...")
@@ -252,6 +266,7 @@ def main():
                         print("That's creepy, right?..")
                         print("So, do not make such mistakes as your character "
                               "actually did!!!")
+                        dead = True
             elif univer_choice == 3:
                 print("Congratulations! You have entered '{u}'!".format(
                     u=universities[2]))
@@ -282,9 +297,97 @@ def main():
                     print("That's creepy, right?..")
                     print("So, do not make such mistakes as your character did")
                     print("!!!")
+                    dead = True
 
         elif birth_location is 'Europe':
-            pass
+            print("Here we go! Your birth location is Europe!")
+            sleep(1)
+
+            print("Now, chose your gender:")
+            print("1) Boy")
+            print("2) Girl")
+            while type(gender) is not int:
+                try:
+                    gender = int(input(">>> "))
+                    if gender <= 0 or gender > 2:
+                        raise SyntaxError("Wrong choice")
+                except (NameError, SyntaxError, TypeError, ValueError):
+                    print("\nPlease, try again...")
+                    gender = None
+
+            sleep(1)
+            print("Nice! As well as you was born in an intelligent family, "
+                  "your lovely parents were trying to give you all the best.")
+            sleep(5)
+            print("You was studying a in high-paying educational institution;")
+            sleep(3)
+            print("And was a part of different school groups, like fine art, "
+                  "music (piano) and computer science.")
+            sleep(5)
+            print('\n')
+            print("But you know that awesome school-time, do you ;)")
+            sleep(1)
+            print("As you get to know - you have fallen in love <3")
+            sleep(1)
+            if gender == 1:
+                print("The girl you are in love with is really cute!")
+                print("But God-damned graduation exams are coming...")
+            if gender == 2:
+                print("You like this nice guy, but graduation exams are coming")
+            print("So, chose if you really need this relationships:")
+
+            while type(relationships) is not str:
+                try:
+                    relationships = input("'Y/N' >>> ").upper()
+                    if relationships != 'Y' and relationships != 'N':
+                        raise SyntaxError("Wrong choice")
+                except (NameError, SyntaxError, TypeError, ValueError):
+                    print("\nPlease, try again...")
+                    relationships = None
+
+            if relationships == 'Y':
+                print('\n')
+                print("Alright :)")
+                sleep(1)
+                print("But how strong is your love?")
+                print("Evaluate it in range from 0 ('do not really love...') "
+                      "to 50 ('i have lost my mind')")
+
+                while type(love) is not int:
+                    try:
+                        love = int(input(">>> "))
+                        if love < 0 or love > 50:
+                            raise SyntaxError("Wrong number has been entered")
+                    except (NameError, SyntaxError, TypeError, ValueError):
+                        print("\nPlease, try again...")
+                        love = None
+
+                if gender == 1:
+                    print("Now, keep in mind, that the possibility of "
+                          "successful exam passing has been decreased "
+                          "by {love} points ;(".format(love=love))
+                    sleep(1)
+                    print("...the original value was '{original}'".format(
+                        original=exams_pass_perc))
+                    exams_pass_perc -= love
+                    print("You have spent to much time on that girl...")
+                if gender == 2:
+                    exams_pass_perc += const_increase
+                    print("Hooray! Your possibility of successful exam passing "
+                          "has been increased to '{points}' points!".format(
+                              points=const_increase))
+                    sleep(3)
+                    print("Because your boyfriend helped you with preparation)")
+
+            elif relationships == 'N':
+                print("\nWell, that's sad...")
+                sleep(1)
+                print("But there are some advantages - your possibility of "
+                      "successful exam passing has been increased "
+                      "to '{points}' points!".format(points=const_increase))
+                exams_pass_perc += const_increase
+                print("Because you now have more time to concentrate on "
+                      "exams preparation ;)")
         else:
             pass
     elif choice is 2:
