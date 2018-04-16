@@ -118,15 +118,15 @@ def main():
             print("Note: you have 3 chances to pass the exams!")
             sleep(1)
             print('\n')
-            for i in range(1, 4):
+            for n in range(1, 4):
                 sleep(3)
-                print("Turn #{turn}".format(turn=i))
+                print("Turn #{turn}".format(turn=n))
                 exams_result = random.randint(0, 100+exams_pass_perc)
                 if exams_result < 100:
                     print("Your result is {result} points...".format(
                         result=exams_result))
                     print("When at least '{p}' is required".format(p=100))
-                    if i != 3:
+                    if n != 3:
                         print("Try again!")
                         print('\n')
                         continue
@@ -388,6 +388,133 @@ def main():
                 exams_pass_perc += const_increase
                 print("Because you now have more time to concentrate on "
                       "exams preparation ;)")
+
+            sleep(3)
+            print("\nAnyway...")
+            sleep(1)
+            print("Exams are around the corner! O_O")
+            sleep(1)
+            input("Press any key to start the exam...")
+            print("Note: you have 3 chances to pass the exams!")
+            sleep(1)
+            print('\n')
+            for n in range(1, 4):
+                sleep(3)
+                print("Turn #{turn}".format(turn=n))
+                exams_result = random.randint(0, 100 + exams_pass_perc)
+                if exams_result < 100:
+                    print("Your result is {result} points...".format(
+                        result=exams_result))
+                    print("When at least '{p}' is required".format(p=100))
+                    if n != 3:
+                        print("Try again!")
+                        print('\n')
+                        continue
+                    else:
+                        print("You have completely failed exams ((")
+                        exams_pass_perc = 0
+                        break
+                if exams_result >= exams_pass_perc:
+                    print("Yey! Lucky you! :)")
+                    print("The result is {result} points!".format(
+                        result=exams_result))
+                    sleep(1)
+                    print("-__-")
+                    print("Have you cheated?..")
+                    sleep(1)
+                    print("Just joking, never mind ;)")
+                    exams_pass_perc = 100
+                    break
+
+            if exams_pass_perc == 100:
+                universities = ['Oxford', 'Cambridge', 'ETH Zurich']
+            if exams_pass_perc == 0:
+                universities = ['Ordinary college', 'Skip university']
+
+            print('\n')
+            print("Time goes by so fast... And now its a high time "
+                  "to chose what to do after school graduation.")
+
+            print("Make a choice: ")
+            for univer in universities:
+                index = universities.index(univer) + 1
+                print("{i}) {u}".format(i=index, u=univer))
+            while type(univer_choice) is not int:
+                try:
+                    univer_choice = int(input(">>> "))
+                    if univer_choice <= 0 or univer_choice > len(universities):
+                        raise SyntaxError("Wrong choice")
+                except (NameError, SyntaxError, TypeError, ValueError):
+                    print("\nPlease, try again...")
+                    univer_choice = None
+            finished_university = random.choice([True, False])
+            if univer_choice == 1:
+                if len(universities) == 2:
+                    print("So, you have entered an ordinary college")
+                    sleep(1)
+                    print("You have finished it with an ordinary diploma")
+                    sleep(1)
+                    print("Soon, you meat an ordinary partner")
+                    sleep(1)
+                    print("Got married, of course))")
+                    sleep(1)
+                    print("And raised an ordinary children")
+                    sleep(3)
+                    print("As you can see, the life was not bad... "
+                          "But a little bit boring, right?")
+                    sleep(3)
+                    print("Now it's your turn to live a life! "
+                          "Everything depends on you!")
+                    sleep(1)
+                    print("Simply do not screw this up.")
+                    dead = True
+                else:
+                    print("Congratulations! You have entered '{u}'!".format(
+                        u=universities[0]))
+                    print('\n')
+                    if finished_university is True:
+                        sleep(3)
+                        print("And you have successfully finished it!")
+                        sleep(3)
+                        print("After graduation, you went to a local "
+                              "graduation school.")
+                        sleep(3)
+                        print("Soon, you become a candidate of technical "
+                              "sciences in the field of machine learning!")
+                        sleep(3)
+                        print("Every one know you as a successful person :)")
+                        sleep(3)
+                        second_half = 'wife' if gender == 1 else 'husband'
+                        if relationships == 'Y':
+                            print("You also meet your future {sh} during "
+                                  "business trip".format(sh=second_half))
+                            sleep(3)
+                            print("Together you have grown beautiful child!")
+                        else:
+                            print("Everything is going fine!")
+                            sleep(3)
+                            print("But you still haven't found your {sh} ((".
+                                  format(sh=second_half))
+                            print("'\_(oo)_/'")
+                    else:
+                        sleep(1)
+                        print("Unfortunately, you have not finished the "
+                              "university, due to active student's life ;)")
+                        sleep(3)
+                        print("Well, sometimes, life is unfair...")
+                        sleep(3)
+                        print("But you haven't give up!")
+                        sleep(3)
+                        print("And soon, started out your own programming "
+                              "courses! Based on educational knowledge;")
+                        print("Also, you have enough time for your hobbies")
+                        print("Like music and painting.")
+                        print("That's pretty nice ;)")
+            elif univer_choice == 2:
+                pass
+            elif univer_choice == 3:
+                pass
+
         else:
             pass
     elif choice is 2:
