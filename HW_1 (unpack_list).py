@@ -1,9 +1,13 @@
+import ast
+
+
 def unpack_list(lst):
     """
     Unpacks nested lists
     :param lst: input nested list
     :return: sorted unpacked list
     """
+    lst = ast.literal_eval(lst)
     while any(isinstance(el, list) for el in lst):
         for el in lst:
             index = lst.index(el)
@@ -35,9 +39,9 @@ def is_parenthesis_balanced(string):
 
 def main():
     nested_list = input("Enter list sequence: ")
-    print "Result: " + str(unpack_list(nested_list))
+    print("Result: " + str(unpack_list(nested_list)))
 
-    print '\n'
+    print('\n')
 
     input_str = input("Enter some string containing parenthesis: ")
     print ("Parenthesis are balanced!" if is_parenthesis_balanced(input_str) 
