@@ -1,3 +1,7 @@
+import re
+from collections import Counter
+
+
 # Task #1
 def convert_n_to_m(x=None, n=10, m=2, in_list_of_digits=False):
     """
@@ -51,6 +55,20 @@ def convert_n_to_m(x=None, n=10, m=2, in_list_of_digits=False):
     return digits if in_list_of_digits else str().join([str(d) for d in digits])
 
 
+# Task #2
+def find_most_frequent(text: str) -> list:
+    """
+    Finds the most frequent words in the given text
+    :param text: input text of arbitrary length
+    :return: list of the most frequent words
+    """
+    words = re.findall(r"[\w']+", text.lower())
+    counter = Counter(words)
+    largest_occurrence = sorted(counter.values(), reverse=True)[0]
+    return sorted([key for key in counter
+                   if counter[key] == largest_occurrence])
+
+
 def main():
     print("Task #1")
     print(convert_n_to_m([123], 4, 3))     # False
@@ -59,6 +77,12 @@ def main():
     print(convert_n_to_m(123, 4, 1))       # 000000000000000000000000000
     print(convert_n_to_m(-123.0, 11, 16))  # False
     print(convert_n_to_m("A1Z", 36, 16))   # 32E7
+    print("-------")
+    print()
+    print("Task #2")
+    print(find_most_frequent("Hello,Hello, my dear!"))  # ['hello']
+    print(find_most_frequent("to understand recursion you need first to understand recursion..."))  # ['recursion', 'to', 'understand']
+    print(find_most_frequent("Mom! Mom! Are you sleeping?!!!"))  # ['mom']
     print("-------")
 
 
