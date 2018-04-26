@@ -69,6 +69,28 @@ def find_most_frequent(text: str) -> list:
                    if counter[key] == largest_occurrence])
 
 
+# Task #3
+def my_sort(func=None, array=list(), reversed=False) -> list:
+    """
+    Custom sort function
+    :param func: key-function for sorting (None, by default)
+    :param array: one-dimensional array of data of the same type
+    :param reversed: reverse output data, if True (False, by default)
+    :return: sorted data array in list format
+    """
+    if any([type(array) is not list,
+            type(reversed) is not bool,
+            func and not callable(func)]):
+        raise TypeError("Incorrect arguments pass: '{f}', '{a}', '{r}'".format(
+            f=func,
+            a=array,
+            r=reversed)
+        )
+    if func:
+        return sorted(array, key=func)
+    return sorted(array, reverse=True) if reversed else sorted(array)
+
+
 def main():
     print("Task #1")
     print(convert_n_to_m([123], 4, 3))     # False
@@ -84,6 +106,13 @@ def main():
     print(find_most_frequent("to understand recursion you need first to understand recursion..."))  # ['recursion', 'to', 'understand']
     print(find_most_frequent("Mom! Mom! Are you sleeping?!!!"))  # ['mom']
     print("-------")
+    print()
+    print("Task #3")
+    print(my_sort(array=["Aa", "cCc", "bbbbb", "a"]))  # ['Aa', 'a', 'bbbbb', 'cCc']
+    print(my_sort(array=["Aa", "cCc", "bbbbb", "a"], reversed=True))  # ['cCc', 'bbbbb', 'a', 'Aa']
+    print(my_sort(func=(lambda x: len(x)), array=["Aa", "cCc", "bbbbb", "a"]))  # ['a', 'Aa', 'cCc', 'bbbbb']
+    print("-------")
+    print()
 
 
 if __name__ == "__main__":
