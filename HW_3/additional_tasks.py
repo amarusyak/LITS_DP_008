@@ -63,10 +63,10 @@ def find_most_frequent(text: str) -> list:
     :return: list of the most frequent words
     """
     words = re.findall(r"[\w']+", text.lower())
-    counter = Counter(words)
-    largest_occurrence = sorted(counter.values(), reverse=True)[0]
-    return sorted([key for key in counter
-                   if counter[key] == largest_occurrence])
+    count = Counter(words)
+    largest_occurrence = sorted(count.values(), reverse=True)[0]
+    return sorted([key for key in count
+                   if count[key] == largest_occurrence])
 
 
 # Task #3
@@ -91,6 +91,45 @@ def my_sort(func=None, array=list(), reversed=False) -> list:
     return sorted(array, reverse=True) if reversed else sorted(array)
 
 
+# Task 4
+def counter(a, b):
+    """
+    Finds common elements in comparison of 2 numbers
+    :param a: first non-negative integer
+    :param b: second non-negative integer
+    :return: a quantity of similar numbers between two numbers
+    """
+    if type(a) is not int or type(b) is not int:
+        raise TypeError("Input values are not 'int'")
+    a = set(str(a))
+    b = set(str(b))
+    return len(a.intersection(b))
+
+
+# Task 5
+def count_holes(n):
+    """
+    Counts how much 'holes' is the input number contains
+    :param n: an integer number or string that contains an integer number
+    :return: quantity of holes that the input number contains
+    """
+    if type(n) is not int and type(n) is not str:
+        return "ERROR: Input value is not 'int' or 'str', but '{}'".format(
+            type(n))
+    holes = {0: 1, 1: 0, 2: 0, 3: 0, 4: 1, 5: 0, 6: 1, 7: 0, 8: 2, 9: 1}
+    n = int(n)
+    n = abs(n)
+    res = 0
+    for e in list(str(n)):
+        res += holes[int(e)]
+    return res
+
+
+# Task 6
+def is_palindrome(data):
+    pass
+
+
 def main():
     print("Task #1")
     print(convert_n_to_m([123], 4, 3))     # False
@@ -111,6 +150,29 @@ def main():
     print(my_sort(array=["Aa", "cCc", "bbbbb", "a"]))  # ['Aa', 'a', 'bbbbb', 'cCc']
     print(my_sort(array=["Aa", "cCc", "bbbbb", "a"], reversed=True))  # ['cCc', 'bbbbb', 'a', 'Aa']
     print(my_sort(func=(lambda x: len(x)), array=["Aa", "cCc", "bbbbb", "a"]))  # ['a', 'Aa', 'cCc', 'bbbbb']
+    print("-------")
+    print()
+    print("Task #4")
+    print(counter(12345, 567))      # 1
+    print(counter(1233211, 12128))  # 2
+    print(counter(123, 45))         # 0
+    print("-------")
+    print()
+    print()
+    print("Task #5")
+    print(count_holes('123'))  # 0
+    print(count_holes(906))    # 3
+    print(count_holes('001'))  # 0
+    print(count_holes(-8))     # 2
+    print(count_holes(-8.0))   # ERROR
+    print("-------")
+    print()
+    print("Task #6")
+    print(count_holes('123'))  # 0
+    print(count_holes(906))  # 3
+    print(count_holes('001'))  # 0
+    print(count_holes(-8))  # 2
+    print(count_holes(-8.0))  # ERROR
     print("-------")
     print()
 
