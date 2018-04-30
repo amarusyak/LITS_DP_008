@@ -163,7 +163,7 @@ def is_parenthesis_balanced(exp: str) -> bool:
         buffer += 1 if p == '(' else -1
         if buffer < 0:
             return False
-    return False if buffer != 0 else True
+    return True if not buffer else False
 
 
 def main():
