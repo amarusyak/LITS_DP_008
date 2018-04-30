@@ -1,5 +1,6 @@
 import re
 from collections import Counter
+from math import trunc
 
 
 # Task #1
@@ -23,7 +24,7 @@ def convert_n_to_m(x=None, n=10, m=2, in_list_of_digits=False):
     digits = list()
 
     if ((type(x) is not str) and
-        (type(x) is not int) or any([
+            (type(x) is not int) or any([
                 (n < 1), (m < 1),
                 (n > 36), (m > 36)
             ]) or not x):
@@ -92,7 +93,7 @@ def my_sort(func=None, array=list(), reversed=False) -> list:
 
 
 # Task 4
-def counter(a, b):
+def counter(a: int, b: int) -> int:
     """
     Finds common elements in comparison of 2 numbers
     :param a: first non-negative integer
@@ -107,7 +108,7 @@ def counter(a, b):
 
 
 # Task 5
-def count_holes(n):
+def count_holes(n: int or str):
     """
     Counts how much 'holes' is the input number contains
     :param n: an integer number or string that contains an integer number
@@ -126,12 +127,47 @@ def count_holes(n):
 
 
 # Task 6
-def is_palindrome(data):
-    pass
+def is_palindrome(data: str or int) -> str:
+    """
+    Checks if the input data is a palindrome
+    :param data: input data in str or int format
+    :return: 'YES' if the input data is a palindrome, otherwise - 'NO'
+    """
+    if type(data) is not str and type(data) is not int:
+        return "ERROR: Input value is not 'int' or 'str', but '{}'".format(
+            type(data))
+    data = str(data).lower().replace(' ', '')
+    if len(data) == 1:
+        return 'YES'
+    res = lambda d: [d[i] == d[len(data) - int(i) - 1]
+                     for i in range(trunc(len(d) / 2))]
+    return 'NO' if False in res(data) else 'YES'
+
+
+# Task 7
+def is_parenthesis_balanced(exp: str) -> bool:
+    """
+    Checks if parenthesis are balanced in the string expression
+    :param exp: input string expression containing parenthesis
+    :return: True/False depending on whether parenthesis are balanced or not
+    """
+    if type(exp) is not str:
+        raise TypeError("Input data is not in str format, '{}' given.".format(
+            type(exp)))
+    parenthesis = re.sub(r'[a-zA-Z0-9\-+/*%]', '', exp)
+    if (parenthesis.startswith(')')
+            or parenthesis.count('(') != parenthesis.count(')')):
+        return False
+    buffer = 0
+    for p in parenthesis:
+        buffer += 1 if p == '(' else -1
+        if buffer < 0:
+            return False
+    return False if buffer != 0 else True
 
 
 def main():
-    print("Task #1")
+    print("Task #1:")
     print(convert_n_to_m([123], 4, 3))     # False
     print(convert_n_to_m("0123", 5, 6))    # 102
     print(convert_n_to_m("123", 3, 5))     # False
@@ -140,26 +176,25 @@ def main():
     print(convert_n_to_m("A1Z", 36, 16))   # 32E7
     print("-------")
     print()
-    print("Task #2")
+    print("Task #2:")
     print(find_most_frequent("Hello,Hello, my dear!"))  # ['hello']
     print(find_most_frequent("to understand recursion you need first to understand recursion..."))  # ['recursion', 'to', 'understand']
     print(find_most_frequent("Mom! Mom! Are you sleeping?!!!"))  # ['mom']
     print("-------")
     print()
-    print("Task #3")
-    print(my_sort(array=["Aa", "cCc", "bbbbb", "a"]))  # ['Aa', 'a', 'bbbbb', 'cCc']
-    print(my_sort(array=["Aa", "cCc", "bbbbb", "a"], reversed=True))  # ['cCc', 'bbbbb', 'a', 'Aa']
+    print("Task #3:")
+    print(my_sort(array=["Aa", "cCc", "bbbbb", "a"]))                           # ['Aa', 'a', 'bbbbb', 'cCc']
+    print(my_sort(array=["Aa", "cCc", "bbbbb", "a"], reversed=True))            # ['cCc', 'bbbbb', 'a', 'Aa']
     print(my_sort(func=(lambda x: len(x)), array=["Aa", "cCc", "bbbbb", "a"]))  # ['a', 'Aa', 'cCc', 'bbbbb']
     print("-------")
     print()
-    print("Task #4")
+    print("Task #4:")
     print(counter(12345, 567))      # 1
     print(counter(1233211, 12128))  # 2
     print(counter(123, 45))         # 0
     print("-------")
     print()
-    print()
-    print("Task #5")
+    print("Task #5:")
     print(count_holes('123'))  # 0
     print(count_holes(906))    # 3
     print(count_holes('001'))  # 0
@@ -167,14 +202,17 @@ def main():
     print(count_holes(-8.0))   # ERROR
     print("-------")
     print()
-    print("Task #6")
-    print(count_holes('123'))  # 0
-    print(count_holes(906))  # 3
-    print(count_holes('001'))  # 0
-    print(count_holes(-8))  # 2
-    print(count_holes(-8.0))  # ERROR
+    print("Task #6:")
+    print(is_palindrome(0))                      # YES
+    print(is_palindrome('puppy'))                # NO
+    print(is_palindrome('mystring1Gni rts ym'))  # YES
     print("-------")
     print()
+    print("Task #7:")
+    print(is_parenthesis_balanced("()()((()())))"))          # False
+    print(is_parenthesis_balanced(")(())("))                 # False
+    print(is_parenthesis_balanced("(a-2)*(sqrt(4x)-6)**2"))  # True
+    print("-------")
 
 
 if __name__ == "__main__":

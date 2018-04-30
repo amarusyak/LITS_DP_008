@@ -41,11 +41,11 @@ def main():
     nested_list = input("Enter list sequence: ")
     print("Result: " + str(unpack_list(nested_list)))
 
-    print('\n')
+    print()
 
     input_str = input("Enter some string containing parenthesis: ")
-    print ("Parenthesis are balanced!" if is_parenthesis_balanced(input_str) 
-           else "Parenthesis are NOT balanced :(")
+    print("Parenthesis are balanced!" if is_parenthesis_balanced(input_str)
+          else "Parenthesis are NOT balanced :(")
 
 
 if __name__ == "__main__":
