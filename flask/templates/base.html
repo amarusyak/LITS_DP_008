@@ -1,0 +1,15 @@
+<html>
+    <head>
+        {% if title %}
+            <title>{{ title }} - site</title>
+        {% else %}
+        <title>Welcome to my site</title>
+        {% endif %}
+    </head>
+    <body>
+        Це наш сайт!
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
